@@ -2,10 +2,23 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::match(['get','post'],'/post/create',[PostController::class,'create'])->name('create');
+
+Route::match(['patch','put'],'/post/{post}',[PostController::class,'update'])->name('update');
+
+Route::get('/post/{post}/edit',[PostController::class,'edit'])->name('edit');
+
+Route::post('/post/store',[PostController::class,'store'])->name('store');
+
+Route::delete('/post/{post}',[PostController::class,'delete'])->name('delete');
+
+Route::get('/post',[PostController::class,'index']) ->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
